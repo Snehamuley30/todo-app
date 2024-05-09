@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block body %}
+       
+    <div class="container">
+        <h2>Add todo</h2>
+        <form action="/" method="POST">
+            <div class="mb-3">
+              <label for="exampleInputtext" class="form-label">Todo Title</label>
+              <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+              <div id="title" class="form-text"></div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputtext" class="form-label">Description</label>
+              <input type="text" class="form-control" name="desc" id="desc">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+    <div class="container">
+        <h2>Your To do</h2>
+        
+                {% if allTodo|length==0 %}
+                <div class="alert alert-dark" role="alert">
+                    No Todos found.Add you first Todo
+                  </div>
+                        
+                    {% else %} 
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">sno</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Actions</th>
+                          </tr>
+                        </thead>
+                         
+                
+                {% for todo in allTodo %}
+            <tbody>
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{todo.title}}</td>
+                <td>{{todo.desc}}</td>
+                <td>{{todo.date_created}}</td>
+                <td><a href="/Delete/{{todo.sno}}"  type="button" class="btn btn-outline-primary btn-sm mx-1">Delete</button>
+                    <a href="/update/{{todo.sno}}"  type="button" class="btn btn-outline-primary btn-sm mx-1">update</button>
+                    
+                    </td>
+              </tr>
+            
+        
+            
+              {% endfor %}
+               </tbody>
+               </table>
+              {% endif %}
+           
+         
+{% endblock body  %}
